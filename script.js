@@ -72,9 +72,51 @@ includeNumber = () => {
   }
 }
 
+includeSpecial = () => {
+  let special = window.prompt("Should the password contain special characters? Yes or No?")
+
+  if(special.toLowerCase() === "yes") {
+    return true;
+  }
+  else if(special.toLowerCase() === "no") {
+    return false;
+  }
+  else
+    // Alert there is an invalid entry and reprompt
+    window.alert("Invalid entry");
+    includeSpecial();
+}
+
+getCharacterSet = (passLength, lowercase, uppercase, number, special) => {
+  // Rstart program if no criteria selected
+  if(!lowercase && !uppercase && !number && !special) {
+    window.alert("No criteria selected. Start over.");
+    generatePassword();
+    return;
+  }
+  // Obtain character set
+  let characterSet = "";
+  if(lowercase) {
+    characterset += "abcdefghijklmnopqrstuvwxyz";
+  }
+  if(uppercase) {
+    characterSet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+  if(number) {
+    characterSet += "0123456789"
+  }
+  if(special) {
+    characterSet += "!@#$%^&*"
+  }
+  return characterSet;
+  
+}
+
 generatePassword = () => {
   passLength = passwordLength();
   lowercase = includeLowercase();
   uppercase = includeUppercase();
   number = includeNumber();
+  special = includeSpecial();
+  characterSet = getCharacterSet(passLength, lowercase, uppercase, number, special);
 }
