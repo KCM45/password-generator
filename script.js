@@ -29,8 +29,10 @@ passwordLength = () => {
 includeLowercase= () => {
   let lowercase = window.prompt("Should the password include lowercase letters? Yes or No?")
   // Confirm a yes or no response
-  if(["yes", "no"].includes(lowercase.toLowerCase())) {
+  if(lowercase.toLowerCase() === "yes") {
     return true;
+  } else if (lowercase.toLowerCase() === "no") {
+    return false;
   } else {
     // Alert there is an invalid entry and reprompt
     window.alert("Invalid entry");
@@ -41,12 +43,32 @@ includeLowercase= () => {
 includeUppercase= () => {
   let uppercase = window.prompt("Should the password include uppercase letters? Yes or No?")
   // Confirm a yes or no response
-  if(["yes", "no"].includes(uppercase.toLowerCase())) {
+  if( uppercase.toLowerCase() === "yes") {
     return true;
-  } else {
+  } 
+  else if (uppercase.toLowerCase() === "no") {
+    return false;
+  }
+  else {
     // Alert there is an invalid entry and reprompt
     window.alert("Invalid entry");
     includeUppercase();
+  }
+}
+
+includeNumber = () => {
+  let number = window.prompt("Should the password include number(s)? Yes or No?")
+  // Confirm yes or no response
+  if(number.toLowerCase() === "yes") {
+    return true;
+  }
+  else if (number.toLowerCase() === "no") {
+    return false;
+  }
+  else {
+    // Alert there is an invalid entry and reprompt
+    window.alert("Invalid entry");
+    includeNumber();    
   }
 }
 
@@ -54,4 +76,5 @@ generatePassword = () => {
   passLength = passwordLength();
   lowercase = includeLowercase();
   uppercase = includeUppercase();
+  number = includeNumber();
 }
