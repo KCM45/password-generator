@@ -87,7 +87,7 @@ includeSpecial = () => {
     includeSpecial();
 }
 
-getCharacterSet = (passLength, lowercase, uppercase, number, special) => {
+getCharacterSet = (lowercase, uppercase, number, special) => {
   // Rstart program if no criteria selected
   if(!lowercase && !uppercase && !number && !special) {
     window.alert("No criteria selected. Start over.");
@@ -97,7 +97,7 @@ getCharacterSet = (passLength, lowercase, uppercase, number, special) => {
   // Obtain character set
   let characterSet = "";
   if(lowercase) {
-    characterset += "abcdefghijklmnopqrstuvwxyz";
+    characterSet += "abcdefghijklmnopqrstuvwxyz";
   }
   if(uppercase) {
     characterSet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -108,8 +108,50 @@ getCharacterSet = (passLength, lowercase, uppercase, number, special) => {
   if(special) {
     characterSet += "!@#$%^&*"
   }
-  return characterSet;
+  return characterSet; 
+}
+
+getPassword = (characterSet, passLength, lowercase, uppercase, number, special) => {
+  // Use chatacterset to generate random password string
+  chrArray = characterSet.split("");
+  password = [];
+  for(let i = 0; i < passLength; i++) {
+    randomInt = Math.floor(Math.random() * passLength);
+    password[i] = chrArray[randomInt];
+  }
+  // Check password meets criteria
+  password = password.join("");
+  checkPassword(password, characterSet, passLength, lowercase, uppercase, number, special);
   
+  return password;
+}
+
+checkPassword = (password, characterSet, passLength, lowercase, uppercase, number, special) => {
+  // Check password meets criteria. If not, rerun getPassword()
+  if(lowercase) {
+    if(!(/[a-z]/.test(password))) {
+      getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+    }
+  }
+  if(uppercase) {
+    if(!(/[A-Z]/.test(password))) {
+      getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+    }
+  }
+  if(number) {
+    if(!(/[0-9]/.test(password))) {
+      getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+    }
+  }
+  if(special) {
+    if(!(/[!@#$%^&*]/.test(password))) {
+      getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+
+    }
+  }
+
+  return true;
+
 }
 
 generatePassword = () => {
@@ -118,5 +160,10 @@ generatePassword = () => {
   uppercase = includeUppercase();
   number = includeNumber();
   special = includeSpecial();
-  characterSet = getCharacterSet(passLength, lowercase, uppercase, number, special);
+  characterSet = getCharacterSet(lowercase, uppercase, number, special);
+  password = getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+  console.log(password);
 }
+
+init = () => generatePassword()
+init();
