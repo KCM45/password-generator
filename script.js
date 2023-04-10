@@ -108,48 +108,49 @@ getCharacterSet = (lowercase, uppercase, number, special) => {
   if(special) {
     characterSet += "!@#$%^&*"
   }
+  console.log(characterSet);
   return characterSet; 
 }
 
 getPassword = (characterSet, passLength, lowercase, uppercase, number, special) => {
   // Use chatacterset to generate random password string
-  chrArray = characterSet.split("");
-  password = [];
-  for(let i = 0; i < passLength; i++) {
-    randomInt = Math.floor(Math.random() * passLength);
-    password[i] = chrArray[randomInt];
+  console.log("Dog");
+  let test = false;
+  while(!test) {
+  let chrArray = characterSet.split();
+    let password = [];
+    for(let i = 0; i < passLength; i++) {
+      randomInt = Math.floor(Math.random() * passLength);
+      password[i] = chrArray[randomInt];
+    }
+    // Convert to string
+    password = password.join("");
+    test = checkPassword(password, characterSet, passLength, lowercase, uppercase, number, special);
   }
-  // Check password meets criteria
-  password = password.join("");
-  checkPassword(password, characterSet, passLength, lowercase, uppercase, number, special);
-  
-  return password;
+  return password;  
 }
 
 checkPassword = (password, characterSet, passLength, lowercase, uppercase, number, special) => {
   // Check password meets criteria. If not, rerun getPassword()
-  if(lowercase) {
-    if(!(/[a-z]/.test(password))) {
-      getPassword(characterSet, passLength, lowercase, uppercase, number, special);
-    }
+  if(lowercase && !(/[a-z]/.test(password))) {
+      return false;
   }
   if(uppercase) {
     if(!(/[A-Z]/.test(password))) {
-      getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+      return false;
     }
   }
   if(number) {
     if(!(/[0-9]/.test(password))) {
-      getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+      return false;
     }
   }
   if(special) {
     if(!(/[!@#$%^&*]/.test(password))) {
-      getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+      return false;
 
     }
   }
-
   return true;
 
 }
