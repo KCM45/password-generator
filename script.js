@@ -3,8 +3,8 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  let password = generatePassword();
+  let passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
@@ -117,20 +117,26 @@ getPassword = (characterSet, passLength, lowercase, uppercase, number, special) 
   console.log("Dog");
   let test = false;
   while(!test) {
-  let chrArray = characterSet.split();
     let password = [];
+    console.log("Passlength:", passLength)
     for(let i = 0; i < passLength; i++) {
-      randomInt = Math.floor(Math.random() * passLength);
-      password[i] = chrArray[randomInt];
+      randomInt = Math.floor(Math.random() * characterSet.length);
+
+      console.log(randomInt);
+      password[i] = characterSet  [randomInt];
     }
     // Convert to string
+    console.log(password);
     password = password.join("");
-    test = checkPassword(password, characterSet, passLength, lowercase, uppercase, number, special);
+    console.log(password);
+
+    test = checkPassword(password, lowercase, uppercase, number, special);
   }
+  console.log("Password Checked and confirmed")
   return password;  
 }
 
-checkPassword = (password, characterSet, passLength, lowercase, uppercase, number, special) => {
+checkPassword = (password, lowercase, uppercase, number, special) => {
   // Check password meets criteria. If not, rerun getPassword()
   if(lowercase && !(/[a-z]/.test(password))) {
       return false;
@@ -151,20 +157,23 @@ checkPassword = (password, characterSet, passLength, lowercase, uppercase, numbe
 
     }
   }
+  console.log("PW chjecked")
   return true;
 
 }
 
+
+
 generatePassword = () => {
-  passLength = passwordLength();
-  lowercase = includeLowercase();
-  uppercase = includeUppercase();
-  number = includeNumber();
-  special = includeSpecial();
-  characterSet = getCharacterSet(lowercase, uppercase, number, special);
-  password = getPassword(characterSet, passLength, lowercase, uppercase, number, special);
-  console.log(password);
+  let passLength = passwordLength();
+  let lowercase = includeLowercase();
+  let uppercase = includeUppercase();
+  let number = includeNumber();
+  let special = includeSpecial();
+  let characterSet = getCharacterSet(lowercase, uppercase, number, special);
+  let password = getPassword(characterSet, passLength, lowercase, uppercase, number, special);
+  return password;
 }
 
-init = () => generatePassword()
+init = () => writePassword()
 init();
