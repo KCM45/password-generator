@@ -169,6 +169,3 @@ generatePassword = () => {
 
 init = () => writePassword()
 
-// Add event listener to table
-const el = document.getElementById("generate");
-el.addEventListener("click", init, false);
