@@ -5,8 +5,6 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   let password = generatePassword();
   let passwordText = document.querySelector("#password");
-  console.log("write");
-  console.log(password);
   passwordText.value = password;
 
 }
@@ -107,9 +105,8 @@ getCharacterSet = (lowercase, uppercase, number, special) => {
     characterSet += "0123456789"
   }
   if(special) {
-    characterSet += "!@#$%^&*"
+    characterSet += " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
   }
-  console.log(characterSet);
   return characterSet; 
 }
 
@@ -159,8 +156,6 @@ checkPassword = (password, lowercase, uppercase, number, special) => {
 
 }
 
-
-
 generatePassword = () => {
   let passLength = passwordLength();
   let lowercase = includeLowercase();
@@ -174,3 +169,7 @@ generatePassword = () => {
 
 init = () => writePassword()
 init();
+
+// Add event listener to table
+const el = document.getElementById("generate");
+el.addEventListener("click", init, false);
