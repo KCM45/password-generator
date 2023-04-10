@@ -5,7 +5,8 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   let password = generatePassword();
   let passwordText = document.querySelector("#password");
-
+  console.log("write");
+  console.log(password);
   passwordText.value = password;
 
 }
@@ -114,16 +115,14 @@ getCharacterSet = (lowercase, uppercase, number, special) => {
 
 getPassword = (characterSet, passLength, lowercase, uppercase, number, special) => {
   // Use chatacterset to generate random password string
-  console.log("Dog");
   let test = false;
+  let password = [];
   while(!test) {
-    let password = [];
-    console.log("Passlength:", passLength)
     for(let i = 0; i < passLength; i++) {
       randomInt = Math.floor(Math.random() * characterSet.length);
 
       console.log(randomInt);
-      password[i] = characterSet  [randomInt];
+      password[i] = characterSet[randomInt];
     }
     // Convert to string
     console.log(password);
@@ -132,7 +131,6 @@ getPassword = (characterSet, passLength, lowercase, uppercase, number, special) 
 
     test = checkPassword(password, lowercase, uppercase, number, special);
   }
-  console.log("Password Checked and confirmed")
   return password;  
 }
 
@@ -157,7 +155,6 @@ checkPassword = (password, lowercase, uppercase, number, special) => {
 
     }
   }
-  console.log("PW chjecked")
   return true;
 
 }
