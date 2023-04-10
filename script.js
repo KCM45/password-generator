@@ -168,7 +168,6 @@ generatePassword = () => {
 }
 
 init = () => writePassword()
-init();
 
 // Add event listener to table
 const el = document.getElementById("generate");
